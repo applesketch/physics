@@ -1,15 +1,7 @@
 # D3: Physics game
 
 
-### Process requirements:
- - Your GitHub repository must show a history of incremental commits with useful commit messages, tracing back to an empty repository at the start.
- - Your README.md file describes:
- - Where to play your game (a link to your deployed game)
- - How your design satisfies the experience requirements below
- - How all of your data assets (if you have any) were created
-
-### Gameplay/Experience requirements
- - The game uses both continuous and discrete inputs from the player
- - The player’s goal can only be achieved indirectly (by allowing the physics engine to move key objects into position/contact).
- - 3+ physics-based gameplay scenes (possibly implemented with a single Phaser Scene subclass).
- - Other scenes are used to separate and contextualize the gameplay scenes
+ - Where to play the game: https://applesketch.github.io/physics
+ - The game is continuous with/without inputs from the player
+ - When the player does nothing, you lose the game. When the player interacts with the game, they can try to get as high a score as possible.
+ - I used Photoshop to create all assets in this game.
