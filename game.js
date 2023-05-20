@@ -1,3 +1,61 @@
+class Intro extends Phaser.Scene {
+    constructor() {
+        super('intro')
+    }
+    preload() {
+        this.load.path = "./img/";
+        this.load.image("studio", "studio.png");
+        this.load.audio("boom", "boom.mp3");
+    }
+    create() {
+        let studio = this.add.sprite(250, 300, "studio");
+        this.sound.add('boom').play();
+        this.time.delayedCall(1500, () => {
+            this.cameras.main.fadeOut(1000, 255,255,255);
+            this.time.delayedCall(900, () => this.scene.start('menu'));
+        });
+    }
+}
+       
+class Menu extends Phaser.Scene {
+    constructor() {
+        super('menu');
+    }
+
+    preload() {
+        this.load.path = "./img/";
+        this.load.image("title", "title.png");
+    }
+
+    create() {
+        let title = this.add.sprite(250, 300, "title");
+        let box = this.add.text(130, 450, "PLAY")
+        .setFontSize(100);       
+
+        this.input.on('pointerdown', () => {
+            this.time.delayedCall(2000, () => {
+                this.cameras.main.fadeOut(2000, 255,255,255);
+            }); 
+            this.scene.start('game');
+            });
+    }
+}
+
+class Outro extends Phaser.Scene {
+    constructor() {
+        super('outro');
+    }
+    create() {
+        let box = this.add.text(30, 300, "GAME OVER")
+        .setFontSize(80);
+        let box2 = this.add.text(80, 450, "Click to restart")
+        .setFontSize(30);
+        this.input.on('pointerdown', () => {
+            this.scene.start('game')
+        });
+    }
+}
+
 // referenced from https://www.emanueleferonato.com/2019/05/02/flappy-bird-html5-prototype-updated-to-phaser-3-16-2/
 
 let gameOptions = {
@@ -11,7 +69,7 @@ let gameOptions = {
 
 class Game extends PhysicsScene {
     constructor() {
-        super("Game", "Game");
+        super("game", "Game");
     }
     preload() {
       this.load.path = "./img/";
@@ -88,7 +146,7 @@ class Game extends PhysicsScene {
       }
       die(){
         localStorage.setItem(gameOptions.localStorageName, Math.max(this.score));
-        this.scene.start('Game');
+        this.gotoScene('outro');
     }
 }
 
@@ -97,7 +155,7 @@ const game = new Phaser.Game({
     height: 650,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     backgroundColor: '#C01BAE', // pink
-    scene: [Game], 
+    scene: [Intro, Menu, Outro, Game], 
     physics: {
         default: 'arcade',
         arcade: {
